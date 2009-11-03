@@ -196,10 +196,6 @@ module Asf
         end
       end
 
-      #def test_find_addresses
-      #  adresses = Salesforce::Address.find(:all)
-      #end
-
     end
 
   end
