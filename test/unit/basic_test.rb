@@ -17,6 +17,7 @@
 
 require 'rubygems'
 
+$:.unshift File.dirname(__FILE__) + '/../../lib'
 require 'active_record/connection_adapters/activesalesforce_adapter'
 
 require File.dirname(__FILE__) + '/recorded_test_case'
@@ -60,7 +61,7 @@ module Asf
         contact.first_name = 'DutchTestFirstName'
         contact.last_name = 'DutchTestLastName'
         contact.home_phone = '555-555-1212'
-        contact.save
+        contact.save!
 
         contact.reload
       end
@@ -106,7 +107,7 @@ module Asf
 
       def test_find_a_contact_by_first_name
         c = Salesforce::Contact.find_by_first_name('DutchTestFirstName')
-        assert_equal contact.id, c.id
+        assert_equal 'DutchTestFirstName', c.first_name
       end
 
       def test_read_all_content_columns
@@ -151,15 +152,17 @@ module Asf
       end
 
       def test_master_detail
-        department = Salesforce::Department.new(:department_description__c => 'DutchTestDepartment description')
-        department.save
-        department.reload
+        account = Salesforce::Account.new(:name => 'DutchTestAccount name')
+        account.save!
+        begin
+          account.reload
 
-        job = Job.new(:name => "DutchJob")
+          contact = Salesforce::Contact.new(:last_name => "DutchContact last name")
 
-        department.jobs__c << job
-
-        department.destroy
+          account.contacts << contact
+        ensure
+          account.destroy
+        end
       end
 
 
@@ -168,7 +171,7 @@ module Asf
         c2 = Salesforce::Contact.new(:first_name => 'FN2', :last_name => 'LN2')
         c3 = Salesforce::Contact.new(:first_name => 'FN3', :last_name => 'LN3')
 
-        Salesforce::Contact.transaction(c1, c2) do
+        Salesforce::Contact.transaction do
           c1.save
           c2.save
         end
@@ -179,12 +182,12 @@ module Asf
         c2.first_name << '_2'
         c3.first_name << '_2'
 
-        Salesforce::Contact.transaction(c1, c2) do
+        Salesforce::Contact.transaction do
           c1.save
           c2.save
         end
 
-        Salesforce::Contact.transaction(c1, c2) do
+        Salesforce::Contact.transaction do
           c3.save
 
           c3.destroy
@@ -193,9 +196,9 @@ module Asf
         end
       end
 
-      def test_find_addresses
-        adresses = Salesforce::Address.find(:all)
-      end
+      #def test_find_addresses
+      #  adresses = Salesforce::Address.find(:all)
+      #end
 
     end
 

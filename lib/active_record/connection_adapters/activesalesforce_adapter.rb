@@ -696,8 +696,8 @@ module ActiveRecord
         
         # Create relationships for any reference field
         entity_def.relationships.each do |relationship|
-          referenceName = relationship.name
-          unless self.respond_to? referenceName.to_sym or relationship.reference_to == "Profile" 
+          reference_name = relationship.name
+          unless self.respond_to? reference_name.to_sym or relationship.reference_to == "Profile"
             reference_to = relationship.reference_to
             one_to_many = relationship.one_to_many
             foreign_key = relationship.foreign_key
@@ -705,7 +705,7 @@ module ActiveRecord
             # DCHASMAN TODO Figure out how to handle polymorphic refs (e.g. Note.parent can refer to 
             # Account, Contact, Opportunity, Contract, Asset, Product2, <CustomObject1> ... <CustomObject(n)>
             if reference_to.is_a? Array
-              debug("   Skipping unsupported polymophic one-to-#{one_to_many ? 'many' : 'one' } relationship '#{referenceName}' from #{klass} to [#{relationship.reference_to.join(', ')}] using #{foreign_key}")
+              debug("   Skipping unsupported polymophic one-to-#{one_to_many ? 'many' : 'one' } relationship '#{reference_name}' from #{klass} to [#{relationship.reference_to.join(', ')}] using #{foreign_key}")
               next 
             end
             
@@ -729,14 +729,12 @@ module ActiveRecord
             
             if referenced_klass
               if one_to_many
-                assoc_name = reference_to.underscore.pluralize.to_sym
-                klass.has_many assoc_name, :class_name => referenced_klass.name, :foreign_key => foreign_key
+                klass.has_many reference_name, :class_name => referenced_klass.name, :foreign_key => foreign_key
               else
-                assoc_name = reference_to.underscore.singularize.to_sym
-                klass.belongs_to assoc_name, :class_name => referenced_klass.name, :foreign_key => foreign_key
+                klass.belongs_to reference_name, :class_name => referenced_klass.name, :foreign_key => foreign_key
               end
               
-              debug("   Created one-to-#{one_to_many ? 'many' : 'one' } relationship '#{referenceName}' from #{klass} to #{referenced_klass} using #{foreign_key}")
+              debug("   Created one-to-#{one_to_many ? 'many' : 'one' } relationship '#{reference_name}' from #{klass} to #{referenced_klass} using #{foreign_key}")
             end            
           end
         end
