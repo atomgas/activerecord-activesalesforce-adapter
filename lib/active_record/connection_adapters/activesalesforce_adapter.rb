@@ -31,7 +31,8 @@ require File.dirname(__FILE__) + '/id_resolver'
 require File.dirname(__FILE__) + '/sid_authentication_filter'
 require File.dirname(__FILE__) + '/recording_binding'
 require File.dirname(__FILE__) + '/result_array'
- 
+require File.dirname(__FILE__) + '/sql_update_statement_parser'
+
 
 module ActiveRecord    
   class Base   
@@ -429,21 +430,15 @@ module ActiveRecord
       def update(sql, name = nil) #:nodoc:
         #log(sql, name) {
           # Convert sql to sobject
-          table_name, columns, entity_def = lookup(sql.match(/UPDATE\s+(\w+)\s+/mi)[1])
+          parser = ActiveSalesforce::SqlUpdateStatementParser.new
+          parsed_table_name, names, values, id = parser.parse(sql)
+          table_name, columns, entity_def = lookup(parsed_table_name)
           columns = entity_def.column_name_to_column
-          
-          match = sql.match(/SET\s+(.+)\s+WHERE/mi)[1]
-          names = match.scan(/(\w+)\s*=\s*(?:'|NULL|TRUE|FALSE)/mi).flatten
-          
-          values = match.scan(/=\s*(NULL|TRUE|FALSE|'(?:(?:[^']|'')*)'),*/mi).flatten
-          values.map! { |v| v.first == "'" ? v.slice(1, v.length - 2) : v == "NULL" ? nil : v }
           
           fields = get_fields(columns, names, values, :updateable)
 		      null_fields = get_null_fields(columns, names, values, :updateable)          
           
-          ids = sql.match(/WHERE\s+id\s*=\s*'(\w+)'/mi)
-          return if ids.nil?
-          id = ids[1]
+          return if id.nil?
           
           sobject = create_sobject(entity_def.api_name, id, fields, null_fields)
           

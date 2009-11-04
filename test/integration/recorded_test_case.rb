@@ -22,7 +22,7 @@ require 'pp'
 
 
 module Asf
-  module UnitTests
+  module IntegrationTests
 
     module RecordedTestCase
       LOGGER = Logger.new(STDOUT)

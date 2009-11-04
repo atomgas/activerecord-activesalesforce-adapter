@@ -26,28 +26,16 @@ require 'pp'
 module Salesforce
   class Contact < ActiveRecord::Base
   end
-
-  class Department < ActiveRecord::Base
-  end
-
-  class Address < ActiveRecord::Base
-  end
 end
 
 
 module Asf
-  module UnitTests
+  module IntegrationTests
 
     class BasicTest < Test::Unit::TestCase
       include RecordedTestCase
 
       attr_reader :contact
-
-      def initialize(test_method_name)
-        super(test_method_name)
-
-        #force_recording :test_create_a_contact
-      end
 
       def setup
         puts "\nStarting test '#{self.class.name.gsub('::', '')}.#{method_name}'"
