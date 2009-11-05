@@ -67,7 +67,7 @@ Gem::Specification.new do |s|
      "test/unit/sql_parse_test.rb",
      "test/unit/sql_update_grammar_test.rb"
   ]
-  s.homepage = %q{http://github.com/johnreilly/activerecord-activesalesforce-adapter}
+  s.homepage = %q{http://github.com/kellyfelkins/activerecord-activesalesforce-adapter}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
