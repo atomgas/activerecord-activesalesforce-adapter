@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Doug Chasman", "Luigi Montanez", "Senthil Nayagam", "Justin Ball", "Jesse Hallett"]
   s.date = %q{2009-11-05}
-  s.email = %q{jr@trms.com}
+  s.email = %q{kelly@restlater.com}
   s.extra_rdoc_files = [
     "README"
   ]
@@ -110,17 +110,20 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<builder>, [">= 1.2.4"])
       s.add_runtime_dependency(%q<xmlparser>, [">= 0.6"])
       s.add_runtime_dependency(%q<facets>, [">= 2.4"])
+      s.add_runtime_dependency(%q<treetop>, [">= 1.4.2"])
     else
       s.add_dependency(%q<rails>, [">= 2.3.3"])
       s.add_dependency(%q<builder>, [">= 1.2.4"])
       s.add_dependency(%q<xmlparser>, [">= 0.6"])
       s.add_dependency(%q<facets>, [">= 2.4"])
+      s.add_dependency(%q<treetop>, [">= 1.4.2"])
     end
   else
     s.add_dependency(%q<rails>, [">= 2.3.3"])
     s.add_dependency(%q<builder>, [">= 1.2.4"])
     s.add_dependency(%q<xmlparser>, [">= 0.6"])
     s.add_dependency(%q<facets>, [">= 2.4"])
+    s.add_dependency(%q<treetop>, [">= 1.4.2"])
   end
 end
 
