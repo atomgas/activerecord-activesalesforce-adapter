@@ -49,6 +49,12 @@ class SqlUpdateGrammarTest < Test::Unit::TestCase
     assert_equal "123", parse.value
   end
 
+  def test_assignment_w_empty_string
+    parse = @parser.parse("foo = ''")
+    assert_equal "foo", parse.key
+    assert_equal "", parse.value
+  end
+
   def test_assignment_list
     parse = @parser.parse("foo='123',bar='abc'")
     list = parse.items
@@ -87,6 +93,15 @@ class SqlUpdateGrammarTest < Test::Unit::TestCase
     sql = "UPDATE contacts SET first_name = 'abc', last_name = 'xyz' WHERE id = '003D000000Q44bZIAR'"
     parse = @parser.parse(sql)
     expected = {"first_name" => "abc", "last_name" => "xyz"}
+    assert_equal expected, parse.items  
+    assert_equal '003D000000Q44bZIAR', parse.id
+    assert_equal 'contacts', parse.table_name
+  end
+
+  def test_update_statement_with_empty_string
+    sql = "UPDATE contacts SET first_name = '', last_name = 'xyz' WHERE id = '003D000000Q44bZIAR'"
+    parse = @parser.parse(sql)
+    expected = {"first_name" => "", "last_name" => "xyz"}
     assert_equal expected, parse.items  
     assert_equal '003D000000Q44bZIAR', parse.id
     assert_equal 'contacts', parse.table_name

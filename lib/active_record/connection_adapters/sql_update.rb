@@ -436,6 +436,12 @@ module SqlUpdate
     end
   end
 
+  module QuotedString2
+    def text_value
+      ""
+    end
+  end
+
   def _nt_quoted_string
     start_index = index
     if node_cache[:quoted_string].has_key?(index)
@@ -444,36 +450,55 @@ module SqlUpdate
       return cached
     end
 
-    i0, s0 = index, []
+    i0 = index
+    i1, s1 = index, []
     if has_terminal?("'", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+      r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
       terminal_parse_failure("'")
-      r1 = nil
+      r2 = nil
     end
-    s0 << r1
-    if r1
-      r2 = _nt_text
-      s0 << r2
-      if r2
+    s1 << r2
+    if r2
+      r3 = _nt_text
+      s1 << r3
+      if r3
         if has_terminal?("'", false, index)
-          r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
           terminal_parse_failure("'")
-          r3 = nil
+          r4 = nil
         end
-        s0 << r3
+        s1 << r4
       end
     end
-    if s0.last
-      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
-      r0.extend(QuotedString0)
-      r0.extend(QuotedString1)
+    if s1.last
+      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+      r1.extend(QuotedString0)
+      r1.extend(QuotedString1)
     else
-      @index = i0
-      r0 = nil
+      @index = i1
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      if has_terminal?("''", false, index)
+        r5 = instantiate_node(SyntaxNode,input, index...(index + 2))
+        r5.extend(QuotedString2)
+        @index += 2
+      else
+        terminal_parse_failure("''")
+        r5 = nil
+      end
+      if r5
+        r0 = r5
+      else
+        @index = i0
+        r0 = nil
+      end
     end
 
     node_cache[:quoted_string][start_index] = r0

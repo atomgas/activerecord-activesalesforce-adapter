@@ -59,6 +59,12 @@ grammar SqlUpdate
         text.text_value
       end
     }
+    /
+    "''" {
+      def text_value
+        ""
+      end
+    }
   end
 
   rule text
