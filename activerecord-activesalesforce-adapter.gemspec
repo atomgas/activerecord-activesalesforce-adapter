@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{activerecord-activesalesforce-adapter}
-  s.version = "2.3.6"
+  s.version = "2.3.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Doug Chasman", "Luigi Montanez", "Senthil Nayagam", "Justin Ball", "Jesse Hallett"]
-  s.date = %q{2009-11-05}
+  s.date = %q{2010-01-21}
   s.email = %q{kelly@restlater.com}
   s.extra_rdoc_files = [
     "README"
@@ -73,32 +73,31 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{ActiveSalesforce (ASF) is a Rails connection adapter that provides direct access to Salesforce.com hosted data and metadata via the ActiveRecord model layer. Objects, fields, and relationships are all auto surfaced as active record attributes and rels.}
   s.test_files = [
-    "test/unit",
-     "test/unit/sql_update_grammar_test.rb",
-     "test/unit/sql_parse_test.rb",
-     "test/integration",
+    "test/integration",
      "test/integration/basic_test.rb",
-     "test/integration/recorded_results",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_find_addresses.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_find_a_contact_by_first_name.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_client_id.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_create_a_contact.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_master_detail.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_find_a_contact_by_id.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_save_a_contact.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_assignment_rule_id.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_use_default_rule.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_batch_insert.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_get_created_by_from_contact.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_add_notes_to_contact.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_use_update_mru.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_count_contacts.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_read_all_content_columns.recording",
-     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_find_a_contact.recording",
-     "test/integration/config.yml",
      "test/integration/example-config.yml",
+     "test/integration/recorded_results",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_add_notes_to_contact.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_assignment_rule_id.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_batch_insert.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_client_id.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_count_contacts.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_create_a_contact.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_find_a_contact.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_find_a_contact_by_first_name.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_find_a_contact_by_id.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_find_addresses.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_get_created_by_from_contact.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_master_detail.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_read_all_content_columns.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_save_a_contact.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_use_default_rule.recording",
+     "test/integration/recorded_results/AsfIntegrationTestsBasicTest.test_use_update_mru.recording",
+     "test/integration/recorded_test_case.rb",
      "test/integration/sql_test.rb",
-     "test/integration/recorded_test_case.rb"
+     "test/unit",
+     "test/unit/sql_parse_test.rb",
+     "test/unit/sql_update_grammar_test.rb"
   ]
 
   if s.respond_to? :specification_version then
